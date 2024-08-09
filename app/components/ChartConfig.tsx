@@ -76,7 +76,7 @@ export const getChartConfig = (
     let selected: { data: { x: string } } | null = null;
     chart.on("plot:click", (evt: any) => {
       if (selected && selected.data) {
-        const index = dataRef.current.findIndex((row) => row.date === selected.data.x);
+        const index = dataRef.current.findIndex((row) => row.date === selected?.data.x);
         const row = dataRef.current[index + 1];
         if (row) {
           handleAdd([row]);

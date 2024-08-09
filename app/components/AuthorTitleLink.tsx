@@ -1,11 +1,16 @@
 import React from 'react';
 import Image from "next/image";
 
-const AuthorTitleLink = ({ author, title, href, summary }) => {
+const AuthorTitleLink = ({ author, title, href, summary }: {
+  author: string;
+  title: string;
+  href: string;
+  summary: string[];
+}) => {
   return (
     <div 
       className="block p-4 mb-8 max-w-3xl rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 bg-white border border-gray-200"
-      >
+    >
       <div className="mb-8">
         <Image
           src="/value-application.jpg"

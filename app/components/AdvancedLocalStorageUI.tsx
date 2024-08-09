@@ -84,7 +84,7 @@ const AdvancedLocalStorageUI: React.FC<AdvancedLocalStorageUIProps> = ({ dataSou
       title: "买入PE",
       dataIndex: "pe_at_buy",
       key: "pe_at_buy",
-      render: (pe) => pe.toFixed(2),
+      render: (pe : number) => pe.toFixed(2),
     },
     {
       title: "卖出日期",
@@ -100,19 +100,19 @@ const AdvancedLocalStorageUI: React.FC<AdvancedLocalStorageUIProps> = ({ dataSou
       title: "卖出PE",
       dataIndex: "pe_at_sell",
       key: "pe_at_sell",
-      render: (pe) => pe.toFixed(2),
+      render: (pe: number) => pe.toFixed(2),
     },
     {
       title: "总收益率",
       dataIndex: "totalGain",
       key: "totalGain",
-      render: (ar) => `${(ar * 100).toFixed(2)}%`,
+      render: (ar: number) => `${(ar * 100).toFixed(2)}%`,
     },
     {
       title: "年化收益率",
       dataIndex: "annualizedReturn",
       key: "annualizedReturn",
-      render: (ar) => `${(ar * 100).toFixed(2)}%`,
+      render: (ar: number) => `${(ar * 100).toFixed(2)}%`,
     },
   ];
 

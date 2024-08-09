@@ -10,6 +10,10 @@
     "deploy": "next build && touch out/.nojekyll && gh-pages -d out -t true"
   },
   "dependencies": {
+    "antd": "^5.20.0",
+    "dayjs": "^1.11.12",
+    "html2canvas": "^1.4.1",
+    "moment": "^2.30.1",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18"

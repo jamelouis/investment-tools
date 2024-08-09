@@ -10,6 +10,8 @@
     "deploy": "next build && touch out/.nojekyll && gh-pages -d out -t true"
   },
   "dependencies": {
+    "@ant-design/plots": "^2.2.8",
+    "@next/third-parties": "^14.2.5",
     "antd": "^5.20.0",
     "dayjs": "^1.11.12",
     "html2canvas": "^1.4.1",

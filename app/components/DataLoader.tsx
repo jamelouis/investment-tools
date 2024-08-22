@@ -17,8 +17,7 @@ export const useChartDataFromFile = () => {
         const content = e.target.result as string;
         if (file.name.endsWith('.json')) {
           const jsonData = JSON.parse(content);
-          const name = `${jsonData.name} - ${jsonData.code}`;
-          processData(name, jsonData.data || jsonData);
+          processData(file.name, jsonData.data || jsonData);
         } else if (file.name.endsWith('.csv')) {
         } else {
           throw new Error('Unsupported file type. Please use JSON or CSV.');
@@ -38,7 +37,7 @@ export const useChartDataFromFile = () => {
     reader.readAsText(file);
   }, []);
 
-  const processData = (name, rawData) => {
+  const processData = (filename, rawData) => {
     let temp = rawData.map((item) => ({
       date: formatDate(item.date),
       value: parseFloat(item.cp || item.value),
@@ -48,7 +47,7 @@ export const useChartDataFromFile = () => {
     temp.sort((a, b) => new Date(b.date) - new Date(a.date));
 
     setData({
-      name: name,
+      name: filename,
       months: groupByMonth(temp),
       years: groupByYear(temp),
       days: temp.reverse(),

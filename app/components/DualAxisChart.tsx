@@ -13,6 +13,26 @@ import { useChartDataFromFile } from "./DataLoader";
 import FileUploader from "./Upload";
 import moment from "moment";
 import AuthorTitleLink from "./AuthorTitleLink";
+import { QuestionCircleOutlined } from '@ant-design/icons';
+import { FloatButton, Divider } from 'antd';
+
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
+import dayjs from "dayjs";
+
+const driverObj = driver({
+  showProgress: true,
+  steps: [
+    { element: 'h2', popover: { title: '工具缘起', description: '估值工具来源于该文章内容' } },
+    { element: '.top-nav', popover: { title: 'Title', description: 'Description' } },
+    { element: '.file-upload', popover: { title: '上传文件', description: '点击按钮，在目录中选取数据文件上床；或者选中数据文件，拖到文件上传区域。' } },
+    { element: '.footer', popover: { title: 'Title', description: 'Description' } },
+  ]
+});
+
+function startTheMagicShow() {
+  driverObj.drive();
+}
 
 const DualAxisChart: React.FC = () => {
   const [showChart, setShowChart] = useState(false);
@@ -72,8 +92,54 @@ const DualAxisChart: React.FC = () => {
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
-  if (!data || !showChart) return (
-    <div className="flex flex-col items-center justify-center h-screen">
+
+  const chartData = data
+    ? (timeFrame === "day" ? data.days : (timeFrame === "month" ? data.months : data.years))
+    : null;
+  const fakeData = [
+    {
+      "date": dayjs().startOf('year').format('YYYY/MM/DD'), 
+      "cp": 4699.28,
+      "r_cp": 5720.56,
+      "pe_ttm.mcw": 20.11136649001735,
+      "pe_ttm.ew": 21.940524482101246,
+      "pe_ttm.ewpvo": 17.698597523399144,
+      "pb.mcw": 1.484985393822744,
+      "pb.ew": 1.4332208526319397,
+      "pb.ewpvo": 1.4302235236340082,
+      "mc": 10639657240324.55,
+      "cmc": 9388589915425,
+      "fb": 274139555821,
+      "sb": 4897281943.249999,
+      "stockCode": "000905"
+    },
+    {
+      "date": dayjs().format('YYYY/MM/DD'), 
+      "cp": 4699.28,
+      "r_cp": 5720.56,
+      "pe_ttm.mcw": 20.11136649001735,
+      "pe_ttm.ew": 21.940524482101246,
+      "pe_ttm.ewpvo": 17.698597523399144,
+      "pb.mcw": 1.484985393822744,
+      "pb.ew": 1.4332208526319397,
+      "pb.ewpvo": 1.4302235236340082,
+      "mc": 10639657240324.55,
+      "cmc": 9388589915425,
+      "fb": 274139555821,
+      "sb": 4897281943.249999,
+      "stockCode": "000905"
+    }
+  ]
+  const filteredChartData = chartData ? chartData.filter((data) => new Date(data.date) > new Date(startDate)) : fakeData; 
+  dataRef.current = filteredChartData;
+  dataSourceRef.current = dataSource;
+
+  const config = getChartConfig(filteredChartData, dataRef, handleAdd);
+
+  return (
+    <div className="min-h-screen mx-auto max-w-xl md:max-w-3xl">
+      <FloatButton icon={<QuestionCircleOutlined />} type="primary" style={{ insetInlineEnd: 24 }} onClick={startTheMagicShow} />
+      <Divider style={{  borderColor: '#7cb305' }}>参考文章</Divider>
       <AuthorTitleLink
         author="ETF拯救世界"
         title="估值对于投资同一个指数，到底有多大的作用？"
@@ -85,31 +151,10 @@ const DualAxisChart: React.FC = () => {
 "总结来说，文章的核心观点是：估值对长期投资收益有重大影响，投资者应耐心等待低估值时机，以实现更高的年化收益率。"
         ]}
         />
+      <Divider style={{  borderColor: '#7cb305' }}>输入数据</Divider>
       <FileUploader onFileLoad={handleFileLoad} />
-    </div>
-  ); 
-
-  const chartData = data
-    ? (timeFrame === "day" ? data.days : (timeFrame === "month" ? data.months : data.years))
-    : null;
-
-  const filteredChartData = chartData.filter((data) => new Date(data.date) > new Date(startDate));
-  dataRef.current = filteredChartData;
-  dataSourceRef.current = dataSource;
-
-  const config = getChartConfig(filteredChartData, dataRef, handleAdd);
-
-  return (
-    <div>
-      <Button 
-        type="primary" 
-        icon={<ArrowLeftOutlined />} 
-        onClick={handleGoBack}
-        style={{ marginBottom: '20px' }}
-      >
-        Go Back
-      </Button>
-      <DualAxes {...config} title={data.name} />
+      <Divider style={{  borderColor: '#7cb305' }}>输出图表和表格</Divider>
+      <DualAxes {...config} />
       <ChartControls
         timeFrame={timeFrame}
         onTimeFrameChange={handleTimeFrameChange}

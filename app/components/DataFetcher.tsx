@@ -22,14 +22,14 @@ export const useChartData = () => {
     }
   };
 
-  const processData = (rawData) => {
-    let temp = rawData.map((item) => ({
+  const processData = (rawData: any) => {
+    let temp = rawData.map((item: any) => ({
       date: formatDate(item.date),
       value: item.cp,
       pe: item.pe_ttm.mcw,
       pb: item.pb.mcw,
     }));
-    temp.sort((a, b) => new Date(b.date) - new Date(a.date));
+    temp.sort((a: any, b: any) => new Date(b.date) - new Date(a.date));
 
     setData({
       months: groupByMonth(temp),

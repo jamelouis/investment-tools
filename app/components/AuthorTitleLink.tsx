@@ -23,10 +23,10 @@ const AuthorTitleLink = ({ author, title, href, summary }: {
     <a 
       href={href} 
     >
-      <h2 className="text-xl font-semibold text-blue-600 hover:underline mb-2">
+      <h2 className="text-xl font-semibold text-blue-600 hover:underline mb-2 page-header">
         {title}
       </h2>
-      <p className="text-sm text-gray-600">
+      <p className="text-sm text-gray-600 top-nav">
         By <span className="font-medium">{author}</span>
       </p>
     </a>

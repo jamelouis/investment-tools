@@ -39,7 +39,7 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onFileLoad }) => {
   };
 
   return (
-    <div className="max-w-3xl">
+    <div className="max-w-3xl file-upload">
     <Dragger {...uploadProps}>
     <p className="ant-upload-drag-icon">
       <InboxOutlined />

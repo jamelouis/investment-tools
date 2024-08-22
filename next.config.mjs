@@ -12,6 +12,7 @@ const nextConfig = {
       ignoreBuildErrors: true,
     },
     output: 'export',
+    images: { unoptimized: true }
 };
 
 export default nextConfig;

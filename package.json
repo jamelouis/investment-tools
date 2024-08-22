@@ -12,7 +12,9 @@
   "dependencies": {
     "@ant-design/plots": "^2.2.8",
     "@next/third-parties": "^14.2.5",
+    "@supabase/supabase-js": "^2.45.1",
     "antd": "^5.20.0",
+    "d3": "^7.9.0",
     "dayjs": "^1.11.12",
     "html2canvas": "^1.4.1",
     "moment": "^2.30.1",

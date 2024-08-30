@@ -50,73 +50,19 @@ export default function UpFlatDownCount() {
                 .from('stock_stats')
                 .select('*')
 
-            console.log(error, data);
             if (error) console.log('error', error)
             else setData(data.sort((a,b)=> a.date.localeCompare(b.date)))
         }
 
-        // fetchData()
-        const newData = [
-            {
-                "date": "2024-08-14",
-                "up": 1370,
-                "flat": 224,
-                "down": 3744
-            },
-            {
-                "date": "2024-08-15",
-                "up": 3867,
-                "flat": 195,
-                "down": 1276
-            },
-            {
-                "date": "2024-08-13",
-                "up": 3729,
-                "flat": 231,
-                "down": 1377
-            },
-            {
-                "date": "2024-08-16",
-                "up": 1670,
-                "flat": 138,
-                "down": 3530
-            },
-            {
-                "date": "2024-08-19",
-                "up": 1912,
-                "flat": 251,
-                "down": 3174
-            },
-            {
-                "date": "2024-08-21",
-                "up": 1849,
-                "flat": 254,
-                "down": 3236
-            },
-            {
-                "date": "2024-08-20",
-                "up": 669,
-                "flat": 78,
-                "down": 4591
-            },
-            {
-                "date": "2024-08-22",
-                "up": 777,
-                "flat": 94,
-                "down": 4468
-            }
-        ];
-        setData(newData.sort((a,b)=> a.date.localeCompare(b.date)));
+        fetchData()
 
         const fetchPercent = async () => {
             const { data, error } = await supabase.from('percent').select('*')
-            console.log(data, error);
             if(error) console.log(error);
             else setStatData(data);
         }
-        // fetchPercent();
+        fetchPercent();
 
-        console.log('i fire once');
     }, [supabase])
 
     if (data == null || data.length == 0) return <p>Loading ...</p>

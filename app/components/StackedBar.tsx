@@ -70,26 +70,35 @@ function createMarketTrendChart(svg, config) {
     return g; // Return the group element for further customization if needed
 }
 
-const MarketSentimentChart = ({ up, flat, down} :  { up: number, flat: number, down: number}) => {
+const MarketSentimentChart = ({ up, flat, down }: { up: number, flat: number, down: number }) => {
     const svgRef = useRef();
 
     const width = 1200;
     const height = 120;
 
-    const svg = d3.select(svgRef.current)
-        .attr('width', width)
-        .attr('height', height)
-        .attr('viewBox', [0, 0, width, height])
-        .attr('style', "max-width: 100%; height: auto;");
+    useEffect(() => {
+        if (svgRef.current) {
 
-    createMarketTrendChart(svg, {
-        up,
-        flat,
-        down,
-        upText: '涨',
-        downText: '跌',
-        fontSize: "32px"
-    });
+            const svg = d3.select(svgRef.current);
+
+            svg.selectAll('*').remove();
+
+            svg
+                .attr('width', width)
+                .attr('height', height)
+                .attr('viewBox', [0, 0, width, height])
+                .attr('style', "max-width: 100%; height: auto;");
+
+            createMarketTrendChart(svg, {
+                up,
+                flat,
+                down,
+                upText: '涨',
+                downText: '跌',
+                fontSize: "32px"
+            });
+        }
+    }, [])
 
     return <svg ref={svgRef}></svg>;
 };

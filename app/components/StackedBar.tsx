@@ -6,9 +6,8 @@ function createMarketTrendChart(svg, config) {
         up,
         flat,
         down,
-        marginLeft = 0,
-        marginTop = 0,
-        scale = 0.8,
+        marginLeft = 100,
+        marginTop = 20,
         width = 1000,
         height = 40,
         upColor = '#F44336',
@@ -26,7 +25,7 @@ function createMarketTrendChart(svg, config) {
     const down_ = Math.floor(down / total * width);
 
     const g = svg.append("g")
-        .attr("transform", `translate(${marginLeft},${marginTop}) scale(${scale})`);
+        .attr("transform", `translate(${marginLeft},${marginTop})`);
 
     // Down path
     g.append("path")
@@ -74,20 +73,19 @@ function createMarketTrendChart(svg, config) {
 const MarketSentimentChart = ({ up, flat, down} :  { up: number, flat: number, down: number}) => {
     const svgRef = useRef();
 
-    const width = 400;
-    const height = 100;
+    const width = 1200;
+    const height = 120;
 
     const svg = d3.select(svgRef.current)
         .attr('width', width)
-        .attr('height', height);
+        .attr('height', height)
+        .attr('viewBox', [0, 0, width, height])
+        .attr('style', "max-width: 100%; height: auto;");
 
     createMarketTrendChart(svg, {
         up,
         flat,
         down,
-        marginLeft: 20,
-        marginTop: 20,
-        scale: width / 1200,
         upText: '涨',
         downText: '跌',
         fontSize: "32px"

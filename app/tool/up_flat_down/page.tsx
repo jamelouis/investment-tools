@@ -55,8 +55,7 @@ export default function UpFlatDownCount() {
             else setData(data.sort((a,b)=> a.date.localeCompare(b.date)))
         }
 
-        fetchData()
-        /*
+        // fetchData()
         const newData = [
             {
                 "date": "2024-08-14",
@@ -108,20 +107,14 @@ export default function UpFlatDownCount() {
             }
         ];
         setData(newData.sort((a,b)=> a.date.localeCompare(b.date)));
-        setData([
 
-            { date: '2024-08-13', up: 3729, flat: 231, down: 1377 },
-            { date: '2024-08-14', up: 1370, flat: 224, down: 3744 },
-            { date: '2024-08-15', up: 3826, flat: 195, down: 1276 }
-        ])
-        */
         const fetchPercent = async () => {
             const { data, error } = await supabase.from('percent').select('*')
             console.log(data, error);
             if(error) console.log(error);
             else setStatData(data);
         }
-        fetchPercent();
+        // fetchPercent();
 
         console.log('i fire once');
     }, [supabase])
@@ -161,7 +154,7 @@ export default function UpFlatDownCount() {
                         <h2 className="text-lg font-semibold mb-2 text-center">涨跌统计</h2>
                         <div className="bg-white rounded">
                             {/* Place your D3 or Ant Design chart here */}
-                            <div className="flex flex-columns justify-center">
+                            <div className="flex justify-center">
                                 <MarketSentimentChart up={up ? up : 0} flat={flat ? flat : 0} down={down ? down : 0} />
                             </div>
                             <DualAxes {...config} />

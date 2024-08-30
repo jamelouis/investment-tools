@@ -7,9 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "next build && touch out/.nojekyll && gh-pages -d out -t true"
+    "deploy": "next build && touch out/.nojekyll && gh-pages -d out -t true",
+    "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.4.0",
     "@ant-design/plots": "^2.2.8",
     "@next/third-parties": "^14.2.5",
     "@supabase/supabase-js": "^2.45.1",

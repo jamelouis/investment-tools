@@ -20,6 +20,8 @@ export default function Home() {
     setTools(toolsData as Tool[]);
   }, []);
 
+  console.log(tools);
+
   return (
     <>
     <div className="min-h-screen bg-gray-100">

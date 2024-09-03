@@ -62,7 +62,7 @@ export default function Home() {
         <nav className="text-white">
           <ul className="flex flex-col gap-6">
             {category_tools.map(({ icon, title, category}) => {
-              return <CategoryTool icon={icon} title={title} category={category} selected_category={selectedCategory} onClicked={(category: string) => setSelectedCategory(category)} />
+              return <CategoryTool key={category} icon={icon} title={title} category={category} selected_category={selectedCategory} onClicked={(category: string) => setSelectedCategory(category)} />
             })}
           </ul>
         </nav>

@@ -1,31 +1,31 @@
 [
   {
-    "icon": "/all.png",
+    "icon": "all.png",
     "title": "全部",
     "category": "all"
   },
   {
-    "icon": "/chart.png",
+    "icon": "chart.png",
     "title": "图表工具",
     "category": "chart"
   },
   {
-    "icon": "/asset-allocation.png",
+    "icon": "asset-allocation.png",
     "title": "ETF150",
     "category": "etf150"
   },
   {
-    "icon": "/book.png",
+    "icon": "book.png",
     "title": "投资书单",
     "category": "book"
   },
   {
-    "icon": "/video.png",
+    "icon": "video.png",
     "title": "投资视频",
     "category": "video"
   },
   {
-    "icon": "/extension.png",
+    "icon": "extension.png",
     "title": "浏览器插件",
     "category": "extension"
   }

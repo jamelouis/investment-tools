@@ -53,7 +53,7 @@ export default function Home() {
     <>
       <header className="fixed h-screen w-[240px] bg-background">
         <div className="flex mt-[40px] ml-[30px] pb-[30px] items-center"> {/* Added items-center */}
-          <img src="/investment.png" alt="logo" className="w-[30px] h-[30px] mr-[23px]"></img>
+          <img src="investment.png" alt="logo" className="w-[30px] h-[30px] mr-[23px]"></img>
           <div>
             <h2 className="text-primary text-lg">投资101</h2>
             <p className="text-secondary text-sm">在线工具箱平台</p>

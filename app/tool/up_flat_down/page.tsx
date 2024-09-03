@@ -68,6 +68,7 @@ export default function UpFlatDownCount() {
     if (data == null || data.length == 0) return <p>Loading ...</p>
 
     const { up, flat, down } = data[data.length - 1];
+    console.log(up, flat, down);
     let realData = transformData(data);
     const config = {
         xField: 'date',

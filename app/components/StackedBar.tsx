@@ -98,7 +98,7 @@ const MarketSentimentChart = ({ up, flat, down }: { up: number, flat: number, do
                 fontSize: "32px"
             });
         }
-    }, [])
+    }, [up, flat, down])
 
     return <svg ref={svgRef}></svg>;
 };

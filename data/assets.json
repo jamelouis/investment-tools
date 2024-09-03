@@ -1,0 +1,360 @@
+{
+    "name": "ETF 150",
+    "children": [
+        {
+            "name": "A股",
+            "children": [
+                {
+                    "name": "行业",
+                    "children": [
+                        {
+                            "name": "养老产业",
+                            "children": [
+                                {
+                                    "name": 16.45,
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        {
+                            "name": "全指医药",
+                            "children": [
+                                {
+                                    "name": 38.56,
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        {
+                            "name": "中证传媒",
+                            "children": [
+                                {
+                                    "name": -18.63,
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        {
+                            "name": "证券公司",
+                            "children": [
+                                {
+                                    "name": 31.58,
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        {
+                            "name": "全指金融",
+                            "children": [
+                                {
+                                    "name": 1.93,
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        {
+                            "name": "中证环保",
+                            "children": [
+                                {
+                                    "name": 58.51,
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        {
+                            "name": "信息技术",
+                            "children": [
+                                {
+                                    "name": -4.54,
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        {
+                            "name": "富国消费",
+                            "children": [
+                                {
+                                    "name": -6.15,
+                                    "value": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "中小盘",
+                    "children": [
+                        {
+                            "name": "中证500",
+                            "children": [
+                                {
+                                    "name": 27.33,
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        {
+                            "name": "建信500",
+                            "children": [
+                                {
+                                    "name": 26.61,
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        {
+                            "name": "富国500",
+                            "children": [
+                                {
+                                    "name": 62.49,
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        {
+                            "name": "中证500C",
+                            "children": [
+                                {
+                                    "name": 47.95,
+                                    "value": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "价值",
+                    "children": [
+                        {
+                            "name": "中证红利",
+                            "children": [
+                                {
+                                    "name": 39.89,
+                                    "value": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "大盘",
+                    "children": [
+                        {
+                            "name": "沪深300",
+                            "children": [
+                                {
+                                    "name": 50.12,
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        {
+                            "name": "富国300",
+                            "children": [
+                                {
+                                    "name": 39.62,
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        {
+                            "name": "上证50",
+                            "children": [
+                                {
+                                    "name": "001051",
+                                    "value": 1
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "货币",
+            "children": [
+                {
+                    "name": "货币",
+                    "children": [
+                        {
+                            "name": "货币基金",
+                            "children": [
+                                {
+                                    "name": 23.25,
+                                    "value": 1
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "债券",
+            "children": [
+                {
+                    "name": "国内债券",
+                    "children": [
+                        {
+                            "name": "兴全转债",
+                            "children": [
+                                {
+                                    "name": 56.05,
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        {
+                            "name": "易方达安心回报债",
+                            "children": [
+                                {
+                                    "name": 30.07,
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        {
+                            "name": "南方通利纯债",
+                            "children": [
+                                {
+                                    "name": 5.59,
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        {
+                            "name": "7-10国开债",
+                            "children": [
+                                {
+                                    "name": 11.02,
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        {
+                            "name": "易方达高级信用债",
+                            "children": [
+                                {
+                                    "name": 4.68,
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        {
+                            "name": "广发纯债",
+                            "children": [
+                                {
+                                    "name": 12.4,
+                                    "value": 1
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "海外新兴",
+            "children": [
+                {
+                    "name": "香港",
+                    "children": [
+                        {
+                            "name": "香港恒生",
+                            "children": [
+                                {
+                                    "name": 7.5,
+                                    "value": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "海外互联",
+                    "children": [
+                        {
+                            "name": "中国海外互联",
+                            "children": [
+                                {
+                                    "name": -13.1,
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        {
+                            "name": "恒生科技",
+                            "children": [
+                                {
+                                    "name": -25.3,
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        {
+                            "name": "易方达中概互联",
+                            "children": [
+                                {
+                                    "name": -31.91,
+                                    "value": 1
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "商品",
+            "children": [
+                {
+                    "name": "原油",
+                    "children": [
+                        {
+                            "name": "华宝油气",
+                            "children": [
+                                {
+                                    "name": 24.46,
+                                    "value": 1
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "黄金",
+                    "children": [
+                        {
+                            "name": "黄金",
+                            "children": [
+                                {
+                                    "name": 27.94,
+                                    "value": 1
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "海外成熟",
+            "children": [
+                {
+                    "name": "欧洲",
+                    "children": [
+                        {
+                            "name": "德国DAX",
+                            "children": [
+                                {
+                                    "name": 25.34,
+                                    "value": 1
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

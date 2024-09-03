@@ -10,14 +10,18 @@ export const metadata: Metadata = {
   description: "投资笔记",
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+          {children}
+      </body>
       <GoogleAnalytics gaId="G-T6XCEVZ96P" />
     </html>
   );

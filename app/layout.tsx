@@ -26,7 +26,7 @@ export default function RootLayout({
       <div className="fixed bottom-6 right-6 p-2 m-4 hover:rounded-full hover:border-2 hover:border-black">
         <Link href="/" title="首页">
           <Image 
-            src="home.png" 
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH}/home.png`} 
             alt="Home" 
             width={32}
             height={32} />

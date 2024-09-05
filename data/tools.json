@@ -2,7 +2,7 @@
     {
         "id": "up_flat_down",
         "name": "股市股票涨跌统计",
-        "description": "...",
+        "description": "追踪日涨跌股数，借箱盒图洞察日和年初至今的收益率分布，把脉市场情绪。",
         "image": "up_flat_down.png",
         "category": [
             "chart"
@@ -10,8 +10,8 @@
     },
     {
         "id": "valuation",
-        "name": "估值对于投资同一个指数，到底有多大的作用？",
-        "description": "估值对长期投资收益有重大影响，投资者应耐心等待低估值时机，以实现更高的年化收益率。",
+        "name": "估值影响投资收益：耐心等待时机",
+        "description": "文章剖析中证500指数PE，强调估值关键性：低估值入场，年化收益提升；高估值则反之。建议投资者静待估值合理时再投资。",
         "image": "valuation.png",
         "category": [
             "chart",
@@ -20,11 +20,19 @@
     },
     {
         "id": "activity",
-        "name": "发车记录",
-        "description": "发车记录",
+        "name": "长赢指数投资计划-150份",
+        "description": "通过直方图、旭日图和曲线图，我们可以生动地展现交易过程的动态变化。",
         "category": [
             "chart",
             "etf150"
+        ]
+    },
+    {
+        "id": "book_list/fulixiansheng",
+        "name": "复利先生的投资书单",
+        "description": "投资入门至进阶，涵盖理念、基础、策略及历史。",
+        "category": [
+            "book"
         ]
     }
 ]

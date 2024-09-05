@@ -36,6 +36,31 @@ const CategoryTool = ({ icon, title, category, selected_category, onClicked }:
   );
 };
 
+const Card = ({ tool }: { tool: Tool }) => {
+  return (
+    <div className="w-[252px] h-[278px] flex bg-[#f0f2ef] border-1 rounded-[20px] overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+      <div className="p-4 flex flex-col">
+        {(
+          <div className={`flex items-center justify-center relative h-[140px] w-[220px] ${tool.image ? "" : "bg-white"}`}>
+            { tool.image ? 
+            <Image
+              src={tool.image?tool.image:""}
+              alt={tool.name}
+              layout="fill"
+              objectFit="cover"
+            />
+            :
+            <span className="text-center font-bold">{tool.name}</span>
+           }
+          </div>
+        )}
+        <h3 className="text-[1rem] font-semibold text-gray-900 mt-4 mb-2">{tool.name.length > 12 ? `${tool.name.substring(0, 12)}...` : tool.name}</h3>
+        <p className="text-[0.875rem] text-gray-600">{tool.description.length > 42 ? `${tool.description.substring(0, 42)}...` : tool.description}</p>
+      </div>
+    </div>
+  );
+};
+
 export default function Home() {
   const [tools, setTools] = useState<Tool[]>([]);
 
@@ -105,25 +130,10 @@ export default function Home() {
         <div className="min-h-screen bg-background-light">
           <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <h1 className="text-3xl font-bold text-center text-gray-900 mb-12">{title}</h1>
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2  xl:grid-cols-3 2xl:grid-cols-4">
               {filterTools.map((tool) => (
-                <Link href={`/tool/${tool.id}`} key={tool.id}>
-                  <div className="bg-white overflow-hidden shadow-md rounded-lg hover:shadow-lg transition-shadow duration-300 cursor-pointer">
-                    <div className="px-4 py-5 sm:p-6">
-                      {tool.image &&
-                        <div className="relative h-48 w-full mb-2">
-                          <Image
-                            src={tool.image}
-                            alt={tool.name}
-                            layout="fill"
-                            objectFit="cover"
-                          />
-                        </div>
-                      }
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">{tool.name}</h3>
-                      <p className="text-sm text-gray-600">{tool.description}</p>
-                    </div>
-                  </div>
+                <Link href={`/tool/${tool.id}`} key={tool.id} title={tool.name}>
+                  <Card tool={tool} />
                 </Link>
               ))}
             </div>

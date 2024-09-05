@@ -89,6 +89,7 @@ export default function UpFlatDownCount() {
         ],
     };
 
+    console.log(config);
     const metadata = statData.length > 0 ? statData[0].metadata.filter((d)=> d.current_year_percent < 8000) : [];
     const date = statData.length > 0 ? statData[0].date : 'invalid date';
     

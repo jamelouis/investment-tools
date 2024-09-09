@@ -6,4 +6,7 @@ const CustomImage = React.forwardRef((props, ref) => {
   return <Image ref={ref} {...props} src={src} />;
 });
 
+// Add display name for the component
+CustomImage.displayName = "CustomImage";
+
 export default CustomImage;

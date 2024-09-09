@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useMemo } from "react";
 import * as d3 from "d3";
 
 interface ChartConfig {
@@ -112,32 +112,31 @@ const MarketSentimentChart: React.FC<MarketSentimentChartProps> = ({
   down,
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
-
   const width = 1200;
   const height = 120;
+
+  const chartConfig = useMemo(() => ({
+    up,
+    flat,
+    down,
+    upText: "涨",
+    downText: "跌",
+    fontSize: "32px",
+  }), [up, flat, down]);
 
   useEffect(() => {
     if (svgRef.current) {
       const svg = d3.select(svgRef.current);
-
       svg.selectAll("*").remove();
-
       svg
         .attr("width", width)
         .attr("height", height)
         .attr("viewBox", [0, 0, width, height])
         .attr("style", "max-width: 100%; height: auto;");
 
-      createMarketTrendChart(svg, {
-        up,
-        flat,
-        down,
-        upText: "涨",
-        downText: "跌",
-        fontSize: "32px",
-      });
+      createMarketTrendChart(svg, chartConfig);
     }
-  }, [up, flat, down]);
+  }, [chartConfig]);
 
   return <svg ref={svgRef}></svg>;
 };

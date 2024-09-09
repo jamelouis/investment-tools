@@ -4,6 +4,7 @@ import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Link from "next/link";
 import Image from "next/image";
+import CustomImage from "@/app/components/CustomImage";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,8 +24,8 @@ export default function RootLayout({
         {children}
         <div className="fixed bottom-2 right-2 md:bottom-6 md:right-6 md:p-2 md:m-4 p-1 m-2 hover:rounded-full hover:border-2 hover:border-black">
           <Link href="/" title="首页">
-            <Image
-              src={`${process.env.NEXT_PUBLIC_BASE_PATH}/home.png`}
+            <CustomImage 
+              src="/home.png"
               alt="Home"
               width={32}
               height={32}

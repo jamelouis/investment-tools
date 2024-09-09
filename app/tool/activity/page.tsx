@@ -6,6 +6,7 @@ import * as d3 from 'd3';
 import LineChartWithBrush from '@/app/components/LineChart';
 import SunburstChart from '@/app/components/SunburstChart';
 import assetData from '@/data/assets.json';
+import FullScreenWrapper from '@/app/components/FullScreenWrapper';
 
 const useCSVData = (url, row) => {
     const [data, setData] = useState(null);
@@ -214,18 +215,18 @@ export default function Activity() {
     };
     const { data, error } = useCSVData(url, row);
     const [filterYear, setFilterYear] = useState(null);
-    const [articleLink, setArticleLink] = useState('https://qieman.com/alfa/portfolio/LONG_WIN/signal');
+    const [articleLink, setArticleLink] = useState('');
     const [isExpanded, setIsExpanded] = useState(true);
-    const [filterData, setFilterData] = useState(["001051"]);
+    const [filterData, setFilterData] = useState([]);
 
     const currentYear = new Date().getFullYear();
     const now = new Date();
     const [Range, setRange] = useState([new Date(currentYear, 0, 1), now]);
 
-    if (error) return <p className="text-red-500">{error}</p>
-    if (!data) return <p className="text-gray-500">Loading...</p>
+    if (error) return <p className="text-red-500">{error}</p>;
+    if (!data) return <p className="text-gray-500">Loading...</p>;
 
-    const filteredData = data.filter(item => filterData.includes(item.fundCode));
+    const filteredData = filterData.length === 0 ? data : data.filter(item => filterData.includes(item.fundCode));
     const yearData = analyzeYear(filteredData);
     const monthlyData = processMonthlyData(filteredData);
 
@@ -233,35 +234,37 @@ export default function Activity() {
 
     return (
         <>
-            <div className='flex justify-center mb-[480px]'>
-                <div className='flex-col w-8/12 mb-12'>
-                    <h2 className='text-5xl text-center p-6 text-gray-900 dark:text-white'>长赢计划发车可视化</h2>
-                    <SunburstChartDemo />
-                    <StackedBarChart data={yearData} enableBrush={true} onBrushed={(d) => setFilterYear(d)} />
-                    <StackedBarChart data={filterMonthlyData} onClick={(date) => {
-                        const dateString = date.split('-');
-                        const year = parseInt(dateString[0]);
-                        const month = parseInt(dateString[1]) - 1; // JavaScript months are 0-indexed
-                        const startDate = new Date(year, month, 1);
-                        const endDate = new Date(year, month + 1, 1);
-                        setRange([startDate, endDate]);
-                    }} />
-                </div>
-                <div className="fixed bottom-0 w-8/12 mt-10 mr-12 ml-10 ring-1">
-                    <div className="bg-background-light dark:bg-gray-800 shadow-lg rounded-lg">
-                        <button
-                            onClick={() => setIsExpanded(!isExpanded)}
-                            className="w-full p-2 text-center bg-background-light dark:bg-primary-light  dark:hover:bg-gray-600 transition-colors duration-200"
-                        >
-                            {isExpanded ? 'Collapse' : 'Expand'}
-                        </button>
-                        {isExpanded && (
-                            <div className="p-6">
-                                <IndexVisualization activityData={filteredData} onMarkClicked={setArticleLink} range={Range} />
-                            </div>
-                        )}
+            <div className='flex flex-col max-w-7xl m-auto min-h-screen'>
+                <h2 className='text-center font-bold text-2xl pt-6 pb-3'>ETF150 发车</h2>
+                <div className='flex flex-col md:flex-row w-full'>
+                    <FullScreenWrapper className='flex-1 p-4'>
+                        <div className='max-w-4xl m-auto'>
+                            <h3 className='text-center text-sm'>资产配置图</h3>
+                            <SunburstChartDemo />
+                        </div>
+                    </FullScreenWrapper>
+                    <div className='flex-1 p-4'>
+                        <FullScreenWrapper>
+                            <h3 className='text-center text-sm'>年度直方图</h3>
+                        <StackedBarChart data={yearData} enableBrush={true} onBrushed={(d) => setFilterYear(d)} />
+                        </FullScreenWrapper>
+                        <FullScreenWrapper>
+                            <h3 className='text-center text-sm'>月度直方图</h3>
+                        <StackedBarChart data={filterMonthlyData} onClick={(date) => {
+                            const dateString = date.split('-');
+                            const year = parseInt(dateString[0]);
+                            const month = parseInt(dateString[1]) - 1; // JavaScript months are 0-indexed
+                            const startDate = new Date(year, month, 1);
+                            const endDate = new Date(year, month + 1, 1);
+                            setRange([startDate, endDate]);
+                        }} />
+                        </FullScreenWrapper>
                     </div>
                 </div>
+                <FullScreenWrapper className='flex-1 p-4'>
+                    <h3 className='text-center text-sm'>深综指与发车记录</h3>
+                    <IndexVisualization activityData={filteredData} onMarkClicked={setArticleLink} range={Range} />
+                </FullScreenWrapper>
             </div>
         </>
     );

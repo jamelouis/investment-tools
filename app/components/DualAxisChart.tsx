@@ -15,10 +15,12 @@ import moment from "moment";
 import AuthorTitleLink from "./AuthorTitleLink";
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { FloatButton, Divider } from 'antd';
+import Link from 'next/link';
 
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 import dayjs from "dayjs";
+import Footer from "./Footer";
 
 const driverObj = driver({
   showProgress: true,
@@ -138,7 +140,7 @@ const DualAxisChart: React.FC = () => {
 
   return (
     <div className="min-h-screen mx-auto max-w-xl md:max-w-3xl">
-      <FloatButton icon={<QuestionCircleOutlined />} type="primary" style={{ insetInlineEnd: 24 }} onClick={startTheMagicShow} />
+      <FloatButton icon={<QuestionCircleOutlined />} type="primary" style={{ insetInlineEnd: 84 }} onClick={startTheMagicShow} />
       <Divider style={{  borderColor: '#7cb305' }}>参考文章</Divider>
       <AuthorTitleLink
         author="ETF拯救世界"
@@ -169,6 +171,12 @@ const DualAxisChart: React.FC = () => {
         <PageToImageExporter />
       </Space>
       <AdvancedLocalStorageUI dataSource={dataSource} setDataSource={setDataSource} />
+      <div className="mt-6 mb-3 pt-3">
+        <Link href="https://weibo.com/p/1001603901079514384913" title="估值对于投资同一个指数，到底有多大的作用？">
+          ETF拯救世界 - 估值对于投资同一个指数，到底有多大的作用？ 
+        </Link>
+      </div>
+      <Footer />
     </div>
   );
 };

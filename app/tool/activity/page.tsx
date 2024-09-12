@@ -24,63 +24,61 @@ import StackedBarChart from "@/app/components/StackedBarChart";
 import * as d3 from "d3";
 import ReferenceList from "@/app/components/ReferenceList";
 
-const IndexVisualization = React.memo(
-  ({ url, activityData, onMarkClicked, range }) => {
-    const row = useCallback((d) => {
-      d.date = new Date(d.date);
-      d.value = +d.close;
-      return d;
-    }, []);
+const IndexVisualization = ({ url, activityData, onMarkClicked, range }) => {
+  const row = useCallback((d) => {
+    d.date = new Date(d.date);
+    d.value = +d.close;
+    return d;
+  }, []);
 
-    const { data, error } = useCSVData(url, row);
+  const { data, error } = useCSVData(url, row);
 
-    const mark = useMemo(() => {
-      if (!data) return [];
-      return activityData
-        .map((a) => {
-          const dataPoint = data.find(
-            (d) => d.date.getTime() === a.date.getTime(),
-          );
-          return dataPoint
-            ? {
-                date: dataPoint.date,
-                value: dataPoint.value,
-                url: a.articleLink,
-              }
-            : null;
-        })
-        .filter((point) => point !== null);
-    }, [data, activityData]);
+  const mark = useMemo(() => {
+    if (!data) return [];
+    return activityData
+      .map((a) => {
+        const dataPoint = data.find(
+          (d) => d.date.getTime() === a.date.getTime(),
+        );
+        return dataPoint
+          ? {
+              date: dataPoint.date,
+              value: dataPoint.value,
+              url: a.articleLink,
+            }
+          : null;
+      })
+      .filter((point) => point !== null);
+  }, [data, activityData]);
 
-    if (error) return <p className="text-red-500">{error}</p>;
-    if (!data) return <p className="text-gray-500">Loading...</p>;
+  if (error) return <p className="text-red-500">{error}</p>;
+  if (!data) return <p className="text-gray-500">Loading...</p>;
 
-    return (
-      <LineChartWithBrush
-        data={data}
-        mark={mark}
-        onMarkClicked={onMarkClicked}
-        range={range}
-      />
-    );
-  },
-);
+  return (
+    <LineChartWithBrush
+      data={data}
+      mark={mark}
+      onMarkClicked={onMarkClicked}
+      range={range}
+    />
+  );
+};
 
-const YearlyChart = React.memo(({ data, onBrushed }) => (
+const YearlyChart = ({ data, onBrushed }) => (
   <FullScreenWrapper>
     <h3 className="text-center text-sm">年度直方图</h3>
     <StackedBarChart data={data} enableBrush={true} onBrushed={onBrushed} />
   </FullScreenWrapper>
-));
+);
 
-const MonthlyChart = React.memo(({ data, onClick }) => (
+const MonthlyChart = ({ data, onClick }) => (
   <FullScreenWrapper>
     <h3 className="text-center text-sm">月度直方图</h3>
     <StackedBarChart data={data} onClick={onClick} />
   </FullScreenWrapper>
-));
+);
 
-export default function Activity() {
+function Activity() {
   const row = useCallback((d) => {
     d.date = new Date(d.date);
     d.tradeUnit = +d.tradeUnit;
@@ -187,3 +185,6 @@ export default function Activity() {
     </div>
   );
 }
+Activity.displayName = "Activity";
+
+export default Activity;

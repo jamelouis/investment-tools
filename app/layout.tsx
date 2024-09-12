@@ -5,6 +5,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import Link from "next/link";
 import Image from "next/image";
 import CustomImage from "@/app/components/CustomImage";
+import Footer from "./components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +33,7 @@ export default function RootLayout({
             />
           </Link>
         </div>
+        <Footer />
       </body>
       <GoogleAnalytics gaId="G-T6XCEVZ96P" />
     </html>

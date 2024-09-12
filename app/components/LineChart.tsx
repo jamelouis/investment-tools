@@ -8,7 +8,7 @@ const LineChartWithBrush = ({data, mark, onMarkClicked, range}) => {
   useEffect(() => {
     if (range && range.length === 2) {
       setBrushExtent(range);
-      console.log(range);
+      d3.select('.tooltip').remove();
     }
   }, [range]);
 
@@ -25,8 +25,11 @@ const LineChartWithBrush = ({data, mark, onMarkClicked, range}) => {
     const svg = d3.select(svgRef.current);
     svg.selectAll("*").remove();
 
-            svg.attr("viewBox", [0, 0, width + margin.left + margin.right, height + margin.top + margin.bottom])
-                .attr("style", "max-width: 100%; height: auto;");
+    svg.attr("viewBox", [0, 0, width + margin.left + margin.right, height + margin.top + margin.bottom])
+        .attr("style", "max-width: 100%; height: auto;")
+        .on("click", (event, p)=>{
+          d3.select('.tooltip').remove();
+        });
 
     // Set up scales
     const x = d3.scaleTime().range([0, width]);
@@ -91,9 +94,10 @@ const LineChartWithBrush = ({data, mark, onMarkClicked, range}) => {
       .attr('clip-path', 'url(#clip)')
       .attr('cx', d => x(d.date))
       .attr('cy', d => y(d.value))
-      .attr('r', 3.5)
+      .attr('r', 6)
       .attr('fill', 'steelblue')
       .on('mouseover', (event, d) => {
+        d3.select('.tooltip').remove();
         const tooltip = d3.select('body').append('div')
           .attr('class', 'tooltip')
           .style('position', 'absolute')
@@ -106,12 +110,12 @@ const LineChartWithBrush = ({data, mark, onMarkClicked, range}) => {
           .duration(200)
           .style('opacity', .9);
         
-        tooltip.html(`📅: ${d3.timeFormat("%Y-%m-%d")(d.date)} <br/>数值: ${d.value} <br/> 点击查看发车文章`)
+        tooltip.html(`📅: ${d3.timeFormat("%Y-%m-%d")(d.date)} <br/>数值: ${d.value} <br/> <a href="${d.url}" target="_blank">点击查看发车文章</a>`)
           .style('left', (event.pageX + 10) + 'px')
           .style('top', (event.pageY - 28) + 'px');
       })
       .on('mouseout', () => {
-        d3.select('.tooltip').remove();
+        // d3.select('.tooltip').remove();
       })
       .on('click', (event, d) => {
         if (d.url) {

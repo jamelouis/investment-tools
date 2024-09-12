@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import { Tool } from "./types";
 import category_tools from "@/data/category_tools.json";
 import toolsData from "../data/tools.json";
+import ReferenceList from "@/app/components/ReferenceList";
 
 export default function Home() {
   const [tools, setTools] = useState<Tool[]>([]);
@@ -58,7 +59,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <Footer />
       </main>
     </>
   );

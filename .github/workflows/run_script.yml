@@ -6,7 +6,7 @@ on:
     - cron: "0 18 * * *"
   push:
     paths:
-      - "script/main.py"
+      - "script/**"
 
 jobs:
   build:
@@ -26,6 +26,8 @@ jobs:
           if [ -f script/requirements.txt ]; then pip install -r script/requirements.txt; fi
 
       - name: Run script
+        env:
+          API_KEY: ${{ secrets.SUPABASE}}
         run: python script/main.py
 
       - name: Commit and push if changed

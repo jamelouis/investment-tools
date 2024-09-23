@@ -4,7 +4,8 @@ import { useCSVData, Asset_CSV_URL } from "@/app/utils/constant";
 
 export default function FundTable() {
   const { data: assetsData, error: assetsError } = useCSVData(
-    Asset_CSV_URL,
+    "/csv/assets.csv",
+    // Asset_CSV_URL,
     (d) => d,
   );
 

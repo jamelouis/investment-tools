@@ -1,12 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 
-export const Asset_CSV_URL =
-  "https://gist.githubusercontent.com/jamelouis/c4d5d513b9f6c3c4ff59675409ea209a/raw/13f4b4602647b3157d1b8f4903e9be2e2c431398/assets.csv";
-export const INDEX_CSV_URL =
-  "https://gist.githubusercontent.com/jamelouis/64cd7580e042da48d4f95836784951de/raw/1b86392e112a783cb901fcb9af4a8ae13ad08e10/399001.csv";
-export const Transaction_CSV_URL =
-  "https://gist.githubusercontent.com/jamelouis/c4d5d513b9f6c3c4ff59675409ea209a/raw/13f4b4602647b3157d1b8f4903e9be2e2c431398/etf150_transactions.csv";
+export const Asset_CSV_URL = "/csv/assets.csv";
+export const INDEX_CSV_URL = "/csv/sz399001.csv";
+export const Transaction_CSV_URL = "/csv/etf150-transactions.csv";
 
 export const activity_references = [
   {

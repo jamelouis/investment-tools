@@ -107,6 +107,11 @@ function Activity() {
     return generateSunburstData(assetsData);
   }, [assetsData]);
 
+  const filteredData =
+    filterData === null || activityData === null
+      ? activityData
+      : activityData.filter((item) => filterData.codes.includes(item.fundCode));
+
   const yearData = useMemo(() => {
     if (!activityData) return [];
     const filteredData =
@@ -122,12 +127,6 @@ function Activity() {
 
   const monthlyData = useMemo(() => {
     if (!activityData) return [];
-    const filteredData =
-      filterData === null
-        ? activityData
-        : activityData.filter((item) =>
-            filterData.codes.includes(item.fundCode),
-          );
     const monthlyData = processMonthlyData(filteredData);
     return filterYear
       ? monthlyData.filter(
@@ -136,10 +135,9 @@ function Activity() {
             new Date(md.date) <= new Date(filterYear[1], 11, 31),
         )
       : monthlyData;
-  }, [activityData, filterData, filterYear]);
+  }, [activityData, filteredData, filterYear]);
 
   const handleSunburstClick = useCallback((data) => {
-    console.log(data.name);
     setFilterData(data);
   }, []);
 
@@ -150,12 +148,17 @@ function Activity() {
     setRange([startDate, endDate]);
   }, []);
 
+  const handleDayClick = useCallback((date) => {
+    const [year, month, day] = date.split("-").map(Number);
+    const startDate = new Date(year, month - 1, day - 30);
+    const endDate = new Date(year, month - 1, day + 30);
+    setRange([startDate, endDate]);
+  }, []);
+
   if (activityError || assetsError)
     return <p className="text-red-500">{activityError || assetsError}</p>;
   if (!activityData || !assetsData)
     return <p className="text-gray-500">Loading...</p>;
-
-  console.log(assetsData);
 
   return (
     <div className="flex flex-col max-w-7xl m-auto min-h-screen">
@@ -174,12 +177,72 @@ function Activity() {
       </div>
       <FullScreenWrapper className="flex-1 p-4">
         <h3 className="text-center text-sm">深综指与发车记录</h3>
-        <IndexVisualization
-          url={INDEX_CSV_URL}
-          activityData={activityData}
-          onMarkClicked={setArticleLink}
-          range={range}
-        />
+        <div className="flex flex-col md:flex-row gap-8">
+          <IndexVisualization
+            url={INDEX_CSV_URL}
+            activityData={filteredData}
+            onMarkClicked={setArticleLink}
+            range={range}
+          />
+          <div className="hidden md:block w-80 h-[520px] overflow-y-scroll border">
+            {filteredData.map((activity, index) => {
+              return (
+                <div
+                  className={`p-1 ${index % 2 === 0 ? "bg-gray-100" : "bg-white"} hover:bg-green-100 hover:cursor-pointer`}
+                  key={index}
+                  onClick={() =>
+                    handleDayClick(d3.timeFormat("%Y-%m-%d")(activity.date))
+                  }
+                >
+                  <p className="text-sm">
+                    {d3.timeFormat("%Y-%m-%d")(activity.date)}
+                    {activity.type === "buy" ? (
+                      <span className=" text-xs font-bold text-red-800">
+                        (买)
+                      </span>
+                    ) : (
+                      <span className="text-xs font-bold text-green-800">
+                        (卖)
+                      </span>
+                    )}
+                  </p>
+                  <p className="text-xs">{activity.fundName}</p>
+                </div>
+              );
+            })}
+          </div>
+          <div className="md:hidden h-[520px] overflow-y-scroll border">
+            {filteredData.map((activity, index) => {
+              return (
+                <div
+                  className={`px-2 pb-3 flex justify-between items-center ${index % 2 === 0 ? "bg-gray-100" : "bg-white"}`}
+                  key={index}
+                >
+                  <div>
+                    <p className="text-sm">
+                      {d3.timeFormat("%Y-%m-%d")(activity.date)}
+                      {activity.type === "buy" ? (
+                        <span className=" text-xs font-bold text-red-800">
+                          (买)
+                        </span>
+                      ) : (
+                        <span className="text-xs font-bold text-green-800">
+                          (卖)
+                        </span>
+                      )}
+                    </p>
+                    <p className="text-xs">{activity.fundName}</p>
+                  </div>
+                  <div className="text-xs pr-2 hover:text-blue-800 hover:cursor-pointer">
+                    <a title={activity.fundName} href={activity.articleLink}>
+                      查看
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </FullScreenWrapper>
       <ReferenceList references={activity_references} />
     </div>

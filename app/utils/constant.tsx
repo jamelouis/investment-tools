@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 
-export const Asset_CSV_URL = "/csv/assets.csv";
-export const INDEX_CSV_URL = "/csv/sz399001.csv";
-export const Transaction_CSV_URL = "/csv/etf150-transactions.csv";
+export const Asset_CSV_URL =
+  process.env.NEXT_PUBLIC_BASE_PATH + "/csv/assets.csv";
+export const INDEX_CSV_URL =
+  process.env.NEXT_PUBLIC_BASE_PATH + "/csv/sz399001.csv";
+export const Transaction_CSV_URL =
+  process.env.NEXT_PUBLIC_BASE_PATH + "/csv/etf150-transactions.csv";
 
 export const activity_references = [
   {

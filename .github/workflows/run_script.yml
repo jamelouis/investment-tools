@@ -45,6 +45,3 @@ jobs:
           git config --global user.name "Github Actions"
           git add public/
           git diff --quiet && git diff -staged --quiet || (git commit -m "Auto update public folder" && git push)
-          
-      - name: Send email on failure
-        uses: kantakumari/custom-actions-2@v2.3

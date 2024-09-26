@@ -1,8 +1,12 @@
-
 [
-    {
-        "name": "fulixiansheng",
-        "title": "复利先生的投资书单",
-        "url": "https://gist.githubusercontent.com/jamelouis/a955c8ff44e75e8d4fdac891dd6a8d3c/raw/0372096413187ff0cb9337ce528a334705bae613/fulixiansheng.csv"
-    }
+  {
+    "name": "fulixiansheng",
+    "title": "复利先生的投资书单",
+    "url": "/csv/fulixiansheng.csv"
+  },
+  {
+    "name": "etf150-books",
+    "title": "ETF拯救世界书单",
+    "url": "/csv/etf150-books.csv"
+  }
 ]

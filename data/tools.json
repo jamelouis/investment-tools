@@ -30,5 +30,11 @@
     "name": "复利先生的投资书单",
     "description": "投资入门至进阶，涵盖理念、基础、策略及历史。",
     "category": ["book"]
+  },
+  {
+    "id": "book_list/etf150-books",
+    "name": "ETF拯救世界书单",
+    "description": "投资相关书籍",
+    "category": ["book", "etf150"]
   }
 ]

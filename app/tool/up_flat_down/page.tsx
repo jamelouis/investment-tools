@@ -8,6 +8,9 @@ import PercentageChart from "@/app/components/PercentageChart";
 import { StockStat, PercentData } from "@/app/types";
 import { transformData } from "@/app/utils/dataTransformer";
 import { Database } from "@/lib/supabase";
+import References from "@/app/components/Reference";
+import { up_flat_down_references } from "@/app/utils/constant";
+import ReferenceList from "@/app/components/ReferenceList";
 
 const supabase = createClient<Database>(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -29,7 +32,9 @@ export default function UpFlatDownCount() {
         ]);
 
         if (stockStatsResponse.error) throw stockStatsResponse.error;
-        setStockStats(stockStatsResponse.data.sort((a, b) => a.date.localeCompare(b.date)));
+        setStockStats(
+          stockStatsResponse.data.sort((a, b) => a.date.localeCompare(b.date)),
+        );
 
         if (percentDataResponse.error) throw percentDataResponse.error;
         setPercentData(percentDataResponse.data[0]);
@@ -44,16 +49,27 @@ export default function UpFlatDownCount() {
   }, []);
 
   // Ensure hooks are called unconditionally
-  const transformedData = useMemo(() => transformData(stockStats), [stockStats]);
+  const transformedData = useMemo(
+    () => transformData(stockStats),
+    [stockStats],
+  );
   const filteredMetadata = useMemo(() => {
     if (percentData) {
-      return percentData.metadata.filter(d => d.current_year_percent < 8000);
+      return percentData.metadata.filter((d) => d.current_year_percent < 8000);
     }
     return [];
   }, [percentData]);
 
-  if (loading) return <p className="flex justify-center items-center min-h-screen">加载...</p>;
-  if (stockStats.length === 0 || !percentData) return <p className="flex justify-center items-center min-h-screen">No data available</p>;
+  if (loading)
+    return (
+      <p className="flex justify-center items-center min-h-screen">加载...</p>
+    );
+  if (stockStats.length === 0 || !percentData)
+    return (
+      <p className="flex justify-center items-center min-h-screen">
+        No data available
+      </p>
+    );
 
   const latestStats = stockStats[stockStats.length - 1];
 
@@ -76,6 +92,7 @@ export default function UpFlatDownCount() {
 
         <PercentageChart data={filteredMetadata} date={percentData.date} />
       </div>
+      <ReferenceList references={up_flat_down_references} />
     </div>
   );
 }

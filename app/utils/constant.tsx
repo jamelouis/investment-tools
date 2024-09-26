@@ -47,6 +47,18 @@ export const activity_references = [
   },
 ];
 
+export const up_flat_down_references = [
+  {
+    title: "行情中心",
+    url: "https://q.10jqka.com.cn/",
+    author: "同花顺",
+  },
+  {
+    title: "箱形图",
+    url: "http://tuzhidian.com/chart?id=5c666f91372bb033b9c2fa75",
+    author: "图之典",
+  },
+];
 export const useCSVData = (url, row) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);

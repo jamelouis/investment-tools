@@ -1,10 +1,10 @@
 "use client";
 import AssetLists from "@/app/components/AssetList";
-import { useCSVData, Asset_CSV_URL } from "@/app/utils/constant";
+import { useCSVData, base_path } from "@/app/utils/constant";
 
 export default function FundTable() {
   const { data: assetsData, error: assetsError } = useCSVData(
-    "/csv/assets.csv",
+    base_path + "/csv/assets.csv",
     // Asset_CSV_URL,
     (d) => d,
   );

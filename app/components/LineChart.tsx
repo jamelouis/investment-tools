@@ -110,7 +110,7 @@ const LineChartWithBrush = ({ data, mark, onMarkClicked, range }) => {
       .attr("cx", (d) => x(d.date))
       .attr("cy", (d) => y(d.value))
       .attr("r", 6)
-      .attr("fill", "steelblue")
+      .attr("fill", (d) => (d.type === "buy" ? "red" : "green"))
       .on("mouseover", (event, d) => {
         d3.select(".tooltip").remove();
         const tooltip = d3
@@ -166,14 +166,13 @@ const LineChartWithBrush = ({ data, mark, onMarkClicked, range }) => {
       ])
       .on("end", brushed);
 
-    context
-      .append("g")
-      .attr("class", "brush")
-      .call(brush)
+    context.append("g").attr("class", "brush").call(brush);
+    /*
       .call(
         brush.move,
         brushExtent.map((d) => x(d)),
       );
+      */
 
     // Brush function
     function brushed(event) {

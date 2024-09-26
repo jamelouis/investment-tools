@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 
-export const Asset_CSV_URL =
-  process.env.NEXT_PUBLIC_BASE_PATH + "/csv/assets.csv";
-export const INDEX_CSV_URL =
-  process.env.NEXT_PUBLIC_BASE_PATH + "/csv/sz399001.csv";
-export const Transaction_CSV_URL =
-  process.env.NEXT_PUBLIC_BASE_PATH + "/csv/etf150-transactions.csv";
+export const base_path =
+  process.env.NEXT_PUBLIC_BASE_PATH === undefined
+    ? ""
+    : process.env.NEXT_PUBLIC_BASE_PATH;
+
+export const Asset_CSV_URL = base_path + "/csv/assets.csv";
+export const Transaction_CSV_URL = base_path + "/csv/etf150-transactions.csv";
 
 export const activity_references = [
   {
@@ -186,6 +187,7 @@ export function generateSunburstData(data) {
       name: item.name,
       code: item.code,
       value: 1,
+      underlying: item.underlying,
     });
 
     // Add the code to the codes arrays at all levels

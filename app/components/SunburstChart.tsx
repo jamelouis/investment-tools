@@ -194,6 +194,7 @@ const SunburstChart: React.FC<SunburstChartProps> = ({
           onClick({
             name: p.data.name,
             codes: p.data.code ? [p.data.code] : undefined,
+            underlying: p.data.underlying ?? p.data.underlying,
           });
         }
       }

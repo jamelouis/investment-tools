@@ -11,6 +11,7 @@ import LineChartWithBrush from "@/app/components/LineChart";
 import SunburstChart from "@/app/components/SunburstChart";
 import FullScreenWrapper from "@/app/components/FullScreenWrapper";
 import {
+  base_path,
   Transaction_CSV_URL,
   INDEX_CSV_URL,
   Asset_CSV_URL,
@@ -23,6 +24,8 @@ import {
 import StackedBarChart from "@/app/components/StackedBarChart";
 import * as d3 from "d3";
 import ReferenceList from "@/app/components/ReferenceList";
+
+import index from "@/data/index.json";
 
 const IndexVisualization = ({ url, activityData, onMarkClicked, range }) => {
   const row = useCallback((d) => {
@@ -45,6 +48,7 @@ const IndexVisualization = ({ url, activityData, onMarkClicked, range }) => {
               date: dataPoint.date,
               value: dataPoint.value,
               url: a.articleLink,
+              type: a.type,
             }
           : null;
       })
@@ -97,10 +101,11 @@ function Activity() {
   const [filterYear, setFilterYear] = useState(null);
   const [articleLink, setArticleLink] = useState("");
   const [filterData, setFilterData] = useState(null);
+  const [indexUrl, setIndexUrl] = useState("399001");
 
   const currentYear = new Date().getFullYear();
   const now = new Date();
-  const [range, setRange] = useState([new Date(currentYear, 0, 1), now]);
+  const [range, setRange] = useState();
 
   const sunburstData = useMemo(() => {
     if (!assetsData) return null;
@@ -139,6 +144,9 @@ function Activity() {
 
   const handleSunburstClick = useCallback((data) => {
     setFilterData(data);
+    if (data.underlying) {
+      setIndexUrl(data.underlying);
+    }
   }, []);
 
   const handleMonthClick = useCallback((date) => {
@@ -176,14 +184,33 @@ function Activity() {
         </div>
       </div>
       <FullScreenWrapper className="flex-1 p-4">
-        <h3 className="text-center text-sm">深综指与发车记录</h3>
         <div className="flex flex-col md:flex-row gap-8">
-          <IndexVisualization
-            url={INDEX_CSV_URL}
-            activityData={filteredData}
-            onMarkClicked={setArticleLink}
-            range={range}
-          />
+          <div className="flex flex-col">
+            <div className="mb-4">
+              <select
+                id="indexSelect"
+                className="block p-1 md:px-3 md:py-2  border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs"
+                onChange={(e) => {
+                  setIndexUrl(e.target.value);
+                }}
+                value={indexUrl}
+              >
+                {index.map((item, idx) => (
+                  <option key={idx} value={item.code}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="sm:w-[360px] md:w-[820px]">
+              <IndexVisualization
+                url={base_path + "/csv/" + indexUrl + ".csv"}
+                activityData={filteredData}
+                onMarkClicked={setArticleLink}
+                range={range}
+              />
+            </div>
+          </div>
           <div className="hidden md:block w-80 h-[520px] overflow-y-scroll border">
             {filteredData.map((activity, index) => {
               return (
@@ -194,19 +221,24 @@ function Activity() {
                     handleDayClick(d3.timeFormat("%Y-%m-%d")(activity.date))
                   }
                 >
-                  <p className="text-sm">
-                    {d3.timeFormat("%Y-%m-%d")(activity.date)}
-                    {activity.type === "buy" ? (
-                      <span className=" text-xs font-bold text-red-800">
-                        (买)
-                      </span>
-                    ) : (
-                      <span className="text-xs font-bold text-green-800">
-                        (卖)
-                      </span>
-                    )}
-                  </p>
-                  <p className="text-xs">{activity.fundName}</p>
+                  <div className="flex flex-row items-center">
+                    <span className="p-1 text-sm  mr-2">{index + 1}</span>
+                    <div>
+                      <p className="text-sm">
+                        {d3.timeFormat("%Y-%m-%d")(activity.date)}
+                        {activity.type === "buy" ? (
+                          <span className=" text-xs font-bold text-red-800">
+                            (买)
+                          </span>
+                        ) : (
+                          <span className="text-xs font-bold text-green-800">
+                            (卖)
+                          </span>
+                        )}
+                      </p>
+                      <p className="text-xs">{activity.fundName}</p>
+                    </div>
+                  </div>
                 </div>
               );
             })}
@@ -248,6 +280,5 @@ function Activity() {
     </div>
   );
 }
-Activity.displayName = "Activity";
 
 export default Activity;

@@ -7,28 +7,8 @@ import json
 import pandas as pd
 
 data_folder = 'public/csv'
-supabase_api_key = os.environ.get('API_KEY')
-
-if supabase_api_key is None:
-    print(f"supabase api key is invalid.{supabase_api_key}")
-    exit(0)
-print(f"supabase api key is {supabase_api_key}")
-
 if not os.path.exists(data_folder):
     os.makedirs(data_folder)
-
-print('download sz39001')
-symbol="sz399001"
-stock_zh_index_daily_df = ak.stock_zh_index_daily(symbol)
-stock_zh_index_daily_df.to_csv(f'{data_folder}/{symbol}.csv')
-
-print('download margin info in china')
-stock_margin_account_info_df = ak.stock_margin_account_info()
-stock_margin_account_info_df.to_csv(f'{data_folder}/margin-info.csv')
-
-print('download bond rate in china and us')
-bond_zh_us_rate_df = ak.bond_zh_us_rate(start_date="19901219")
-bond_zh_us_rate_df.to_csv(f'{data_folder}/bond-rate.csv')
 
 print('download the daily trade of all stock in china')
 df = ak.stock_zh_a_spot_em()
@@ -64,6 +44,13 @@ df_rename = df_selected.rename(columns = {'名称': 'name', '涨跌幅' : 'perce
 })
 json_data = df_rename.to_json(orient='records',force_ascii=False)
 
+supabase_api_key = os.environ.get('API_KEY')
+
+if supabase_api_key is None:
+    print(f"supabase api key is invalid.{supabase_api_key}")
+    exit(0)
+print(f"supabase api key is {supabase_api_key[:10]}")
+
 url: str = 'https://ortnrxgwpiizulknfdgr.supabase.co'
 key =  supabase_api_key
 current_day = datetime.date.today().isoformat()
@@ -82,3 +69,11 @@ response = (
 )
 
 print(response)
+
+print('download margin info in china')
+stock_margin_account_info_df = ak.stock_margin_account_info()
+stock_margin_account_info_df.to_csv(f'{data_folder}/margin-info.csv')
+
+print('download bond rate in china and us')
+bond_zh_us_rate_df = ak.bond_zh_us_rate(start_date="19901219")
+bond_zh_us_rate_df.to_csv(f'{data_folder}/bond-rate.csv')

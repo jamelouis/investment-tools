@@ -32,7 +32,9 @@ const BookList = ({ name }: { name: string }) => {
 
       try {
         // Fetch CSV data from the URL specified in the book list
-        const response = await fetch(list.url);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_PATH}/${list.url}`,
+        );
         const csvData = await response.text();
         // Parse CSV data using PapaParse library
         const { data } = parse(csvData, { header: true });

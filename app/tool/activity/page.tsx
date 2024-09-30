@@ -105,8 +105,9 @@ function Activity() {
 
   const currentYear = new Date().getFullYear();
   const now = new Date();
-  const [range, setRange] = useState();
+  const [range, setRange] = useState([new Date("2015-01-01"), now]);
 
+  console.log(range);
   const sunburstData = useMemo(() => {
     if (!assetsData) return null;
     return generateSunburstData(assetsData);
@@ -164,9 +165,17 @@ function Activity() {
   }, []);
 
   if (activityError || assetsError)
-    return <p className="text-red-500">{activityError || assetsError}</p>;
+    return (
+      <p className="flex items-center text-red-500 h-screen">
+        {activityError || assetsError}
+      </p>
+    );
   if (!activityData || !assetsData)
-    return <p className="text-gray-500">Loading...</p>;
+    return (
+      <p className="flex items-center justify-center text-gray-500 h-screen">
+        加载中...
+      </p>
+    );
 
   return (
     <div className="flex flex-col max-w-7xl m-auto min-h-screen">

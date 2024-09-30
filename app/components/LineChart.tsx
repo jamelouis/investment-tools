@@ -6,6 +6,7 @@ const LineChartWithBrush = ({ data, mark, onMarkClicked, range }) => {
   const [brushExtent, setBrushExtent] = useState(range);
 
   useEffect(() => {
+    console.log(range);
     if (range && range.length === 2) {
       setBrushExtent(range);
       d3.select(".tooltip").remove();
@@ -166,13 +167,14 @@ const LineChartWithBrush = ({ data, mark, onMarkClicked, range }) => {
       ])
       .on("end", brushed);
 
-    context.append("g").attr("class", "brush").call(brush);
-    /*
+    context
+      .append("g")
+      .attr("class", "brush")
+      .call(brush)
       .call(
         brush.move,
         brushExtent.map((d) => x(d)),
       );
-      */
 
     // Brush function
     function brushed(event) {

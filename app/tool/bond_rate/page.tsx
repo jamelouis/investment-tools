@@ -193,6 +193,7 @@ const BondRate = () => {
       <Card className="w-full">
         <CardHeader>
           <CardTitle className="text-center text-2xl font-bold">中美月度国债收益率</CardTitle>
+          <CardDescription>2年、5年、10年、全部的中美国债收益率</CardDescription>
         </CardHeader>
         <CardContent>
           { !data ? (

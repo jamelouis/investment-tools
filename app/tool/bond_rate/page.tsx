@@ -1,6 +1,6 @@
 "use client";
 import { Line } from "@ant-design/plots";
-import { useCSVData } from "@/app/utils/constant";
+import { Bond_Rate_CSV_URL, useCSVData } from "@/app/utils/constant";
 import ReactECharts from "echarts-for-react";
 import React, { useMemo, useState } from "react";
 import {
@@ -179,7 +179,7 @@ const MonthlyBondYieldChart = ({ data, timeRange }) => {
 
 // Usage
 const BondRate = () => {
-  const { data, error } = useCSVData("/csv/bond-rate.csv", (d) => d);
+  const { data, error } = useCSVData(Bond_Rate_CSV_URL, (d) => d);
 
   const [ timeRange, setTimeRange ] = useState(-1);
 

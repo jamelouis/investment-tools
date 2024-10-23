@@ -8,6 +8,7 @@ export const base_path =
 
 export const Asset_CSV_URL = base_path + "/csv/assets.csv";
 export const Transaction_CSV_URL = base_path + "/csv/etf150-transactions.csv";
+export const Bond_Rate_CSV_URL = base_path + "/csv/bond-rate.csv";
 
 export const activity_references = [
   {

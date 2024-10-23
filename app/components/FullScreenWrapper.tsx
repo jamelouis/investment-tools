@@ -4,11 +4,13 @@ import { FullscreenOutlined, FullscreenExitOutlined } from "@ant-design/icons";
 interface FullScreenWrapperProps {
   children: ReactNode;
   className?: string;
+  isRotate?: boolean;
 }
 
 const FullScreenWrapper: React.FC<FullScreenWrapperProps> = ({
   children,
   className = "",
+  isRotate 
 }) => {
   const [isFullScreen, setIsFullScreen] = useState(false);
 
@@ -25,7 +27,7 @@ const FullScreenWrapper: React.FC<FullScreenWrapperProps> = ({
         {isFullScreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
       </button>
       {isFullScreen ? (
-        <div className="fixed inset-0 z-50 bg-white overflow-auto">
+        <div className={`fixed inset-0 z-50 bg-white overflow-auto `}>
           <div className="p-10 m-auto">
             <button
               onClick={toggleFullScreen}
@@ -33,7 +35,11 @@ const FullScreenWrapper: React.FC<FullScreenWrapperProps> = ({
             >
               <FullscreenExitOutlined />
             </button>
-            {children}
+            <div className={`${isRotate ? "rotate-90 " : ""}`}>
+              <div className={`${isRotate ? "[width:90vh]" : ""}`}>
+                {children}
+              </div>
+            </div>
           </div>
         </div>
       ) : (

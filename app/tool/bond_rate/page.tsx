@@ -12,6 +12,9 @@ import {
   CardTitle
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button";
+import { useIsMobile } from "@/hook/use-mobile";
+import FullScreenWrapper from "@/app/components/FullScreenWrapper";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const MonthlyBondYieldChart = ({ data, timeRange }) => {
   const sampledData = useMemo(() => {
@@ -180,10 +183,9 @@ const MonthlyBondYieldChart = ({ data, timeRange }) => {
 // Usage
 const BondRate = () => {
   const { data, error } = useCSVData(Bond_Rate_CSV_URL, (d) => d);
-
   const [ timeRange, setTimeRange ] = useState(-1);
+  const  isMobile = useIsMobile();
 
-  if (!data) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
   return (
@@ -193,7 +195,16 @@ const BondRate = () => {
           <CardTitle className="text-center text-2xl font-bold">中美月度国债收益率</CardTitle>
         </CardHeader>
         <CardContent>
-          <MonthlyBondYieldChart data={data} timeRange={timeRange}/>
+          { !data ? (
+            <div className="flex items-center justify-center m-4">
+              <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+            </div>
+           ) : (
+            <FullScreenWrapper isRotate={isMobile}>
+                <MonthlyBondYieldChart data={data} timeRange={timeRange}/>
+            </FullScreenWrapper>
+           )
+          }
           <div className="w-full flex justify-center gap-4">
             <Button 
               variant={timeRange === 36 ? "default" : "outline"}

@@ -36,5 +36,11 @@
     "name": "ETF拯救世界书单",
     "description": "投资相关书籍",
     "category": ["book", "etf150"]
+  },
+  {
+    "id": "bond_rate",
+    "name": "中美国债收益率",
+    "description": "中美国债收益率曲线图。（2年，5年，10年，20年，30年）",
+    "category": ["chart"]
   }
 ]

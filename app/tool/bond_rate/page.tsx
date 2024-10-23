@@ -2,9 +2,18 @@
 import { Line } from "@ant-design/plots";
 import { useCSVData } from "@/app/utils/constant";
 import ReactECharts from "echarts-for-react";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card"
+import { Button } from "@/components/ui/button";
 
-const MonthlyBondYieldChart = ({ data }) => {
+const MonthlyBondYieldChart = ({ data, timeRange }) => {
   const sampledData = useMemo(() => {
     const monthlyData = {};
 
@@ -17,11 +26,14 @@ const MonthlyBondYieldChart = ({ data }) => {
         !monthlyData[monthKey] ||
         new Date(row["日期"]) > new Date(monthlyData[monthKey]["日期"])
       ) {
-        monthlyData[monthKey] = { ...row };
+        if(!monthlyData[monthKey]) {
+          monthlyData[monthKey] = { ...row };
+          monthlyData[monthKey]['日期'] = monthKey;
+        }
         Object.keys(row).forEach((key) => {
-          if (key !== "日期" && !isNaN(parseFloat(row[key]))) {
+          if (key !== "日期" && row[key] !== '' && !isNaN(parseFloat(row[key]))) {
             monthlyData[monthKey][key] =
-              parseFloat(monthlyData[monthKey][key]) || 0;
+              parseFloat(row[key]);
           }
         });
       }
@@ -31,43 +43,9 @@ const MonthlyBondYieldChart = ({ data }) => {
       a["日期"].localeCompare(b["日期"]),
     );
   }, [data]);
-  console.log(sampledData);
-  /*
-  const sampledData = useMemo(() => {
-    const monthlyData = {};
 
-    data.forEach((row) => {
-      const date = new Date(row["日期"]);
-      const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+  const filterData = timeRange > 0 ? sampledData.slice(-timeRange) : sampledData;
 
-      if (!monthlyData[monthKey]) {
-        monthlyData[monthKey] = { ...row, count: 1 };
-      } else {
-        Object.keys(row).forEach((key) => {
-          if (key !== "日期" && !isNaN(parseFloat(row[key]))) {
-            monthlyData[monthKey][key] =
-              (parseFloat(monthlyData[monthKey][key]) || 0) +
-              parseFloat(row[key]);
-          }
-        });
-        monthlyData[monthKey].count += 1;
-      }
-    });
-
-    return Object.entries(monthlyData)
-      .map(([date, values]) => ({
-        日期: date,
-        ...Object.fromEntries(
-          Object.entries(values).map(([key, value]) => [
-            key,
-            key !== "count" && key !== "日期" ? value / values.count : value,
-          ]),
-        ),
-      }))
-      .sort((a, b) => a["日期"].localeCompare(b["日期"]));
-  }, [data]);
-
-  */
   const option = {
     color: [
       // China colors (shades of red)
@@ -82,25 +60,18 @@ const MonthlyBondYieldChart = ({ data }) => {
       "#A7D2FF",
     ],
     dataset: {
-      source: sampledData,
-    },
-    title: {
-      text: "月度平均国债收益率",
-      left: "center",
+      source: filterData, 
     },
     legend: {
       type: "scroll",
-      orient: "vertical",
-      right: 10,
-      top: "middle",
+      orient: "horizontal",
+      //right: 10,
+      top: "top",
       itemWidth: 10,
       itemHeight: 10,
       textStyle: {
         fontSize: 12,
       },
-    },
-    grid: {
-      right: "15%", // Adjust this value to make space for the legend
     },
     tooltip: {
       trigger: "axis",
@@ -134,7 +105,7 @@ const MonthlyBondYieldChart = ({ data }) => {
     },
     xAxis: {
       type: "category",
-      data: sampledData.map((item) => item["日期"]),
+      data: filterData.map((item) => item["日期"]),
     },
     yAxis: {
       type: "value",
@@ -158,7 +129,6 @@ const MonthlyBondYieldChart = ({ data }) => {
         type: "line",
         name: "中国国债收益率2年",
         encode: { x: "日期", y: "中国国债收益率2年" },
-        sampling: "average",
       },
       {
         type: "line",
@@ -204,19 +174,54 @@ const MonthlyBondYieldChart = ({ data }) => {
     ],
   };
 
-  return <ReactECharts option={option} style={{ height: "600px" }} />;
+  return <ReactECharts option={option} />;
 };
 
 // Usage
 const BondRate = () => {
   const { data, error } = useCSVData("/csv/bond-rate.csv", (d) => d);
 
+  const [ timeRange, setTimeRange ] = useState(-1);
+
   if (!data) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="h-screen w-screen px-8 pt-12 m-auto">
-      <MonthlyBondYieldChart data={data} />
+    <div className="flex md:items-center justify-center container md:h-screen m-auto px-4 py-4">
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle className="text-center text-2xl font-bold">中美月度国债收益率</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <MonthlyBondYieldChart data={data} timeRange={timeRange}/>
+          <div className="w-full flex justify-center gap-4">
+            <Button 
+              variant={timeRange === 36 ? "default" : "outline"}
+              onClick={() => setTimeRange(36)}
+            >
+              3 年 
+            </Button>
+            <Button 
+              variant={timeRange === 60 ? "default" : "outline"}
+              onClick={() => setTimeRange(60)}
+            >
+              5 年 
+            </Button>
+            <Button 
+              variant={timeRange === 120 ? "default" : "outline"}
+              onClick={() => setTimeRange(120)}
+            >
+              10 年 
+            </Button>
+            <Button 
+              variant={timeRange === -1 ? "default" : "outline"}
+              onClick={() => setTimeRange(-1)}
+            >
+              全部
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

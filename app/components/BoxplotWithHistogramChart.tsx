@@ -28,8 +28,8 @@ const BoxplotWithHistogramChart = ({ data, yField }) => {
 
   return (
     <div>
-      <Box {...config} autofit />
-      <Histogram {...config2} autofit />
+      <Box {...config} />
+      <Histogram {...config2}  />
     </div>
   );
 };

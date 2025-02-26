@@ -1,5 +1,7 @@
 # 投资101
 
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/jamelouis/investment-tools/nextjs.yml)
+
 ## 参考
 
 * 图标下载自 [flaticon](https://www.flaticon.com/search?word=investment) 

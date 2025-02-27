@@ -1,6 +1,7 @@
 # 投资101
 
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/jamelouis/investment-tools/nextjs.yml)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/jamelouis/investment-tools/nextjs.yml) ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/jamelouis/investment-tools)
+
 
 ## 参考
 
